@@ -9,7 +9,7 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
   animations: [
     trigger('divState',[
       state('normal', style({
-        'background-color': 'red', transform: 'translateX(0)'
+        backgroundColor: 'red', transform: 'translateX(0)'
       })),
       state('highlighted', style({
         backgroundColor: 'blue', transform: 'translateX(100px)'
@@ -19,18 +19,39 @@ import { trigger, state, style, transition, animate } from '@angular/animations'
     ]),
     trigger('wildState',[
       state('normal', style({
-        'background-color': 'red', transform: 'translateX(0) scale(1)'
+        backgroundColor: 'red', transform: 'translateX(0) scale(1)', borderRadius:0
       })),
       state('highlighted', style({
-        backgroundColor: 'blue', transform: 'translateX(100px) scale(1)'
+        backgroundColor: 'blue', transform: 'translateX(100px) scale(1)', borderRadius:0
       })),
       state('shrunken', style({
-        backgroundColor: 'green', transform: 'translateX(0px) scale(0.5)'
+        backgroundColor: 'green', transform: 'translateX(0px) scale(0.5)', borderRadius:0
       })),
       transition('normal => highlighted', animate(300)),
-      transition('highlighted => normal', animate(600)),
-      transition('shrunken <=> *', animate(500)),
-    ])
+      transition('highlighted => normal', animate(800)),
+      transition('shrunken <=> *', [
+       style({
+         backgroundColor: 'orange'
+       }),
+       animate(1000, style({
+         borderRadius: '50px'
+       })),
+       animate(500)
+      ])
+    ]),
+    trigger('list1',[
+      state('in', style({
+        opacity: 1,
+        transform: 'translateX(0)'
+      })),
+      transition('void => *',[
+        style({
+          opacity: 0,
+          transform: 'translateX(-100px)'
+        }),
+        animate(300)
+    ]),
+  ]),
   ]
 })
 export class AppComponent {
